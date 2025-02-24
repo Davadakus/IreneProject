@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour {
     
     // public Keyboard keyboard;
     private Rigidbody2D rb;
-    private PlayerInput playerInput;
     private PlayerControls playerControls;
 
     public int jumpCount = 0;
@@ -17,7 +16,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        playerInput = GetComponent<PlayerInput>();
 
         // PlayerControls is the name of the set of control you set 
         playerControls = new PlayerControls();
