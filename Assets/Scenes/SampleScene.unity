@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6593654712805575248, guid: fe4f112507ba70144a5f9f2401ac8511, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 9164380607237703728, guid: fe4f112507ba70144a5f9f2401ac8511, type: 3}
       propertyPath: m_LocalScale.x
       value: 19.161875
@@ -316,6 +320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 6593654712805575248, guid: fe4f112507ba70144a5f9f2401ac8511, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 9164380607237703728, guid: fe4f112507ba70144a5f9f2401ac8511, type: 3}
       propertyPath: m_LocalScale.x
       value: 19.161875
@@ -423,6 +431,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137459122290606777, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137459122290606777, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []

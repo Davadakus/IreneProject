@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     private PlayerInput playerInput;
     private PlayerControls playerControls;
 
+    public int jumpCount = 0;
+    public int maxJump = 2;
     public int moveSpeed = 5;
     public int jumpSpeed = 3;
 
@@ -34,10 +36,10 @@ public class PlayerMovement : MonoBehaviour {
         // Context tells you all the details of the input data
         Debug.Log(context);
         // Only one instance when button is pressed (Not when let go or started)
-        if (context.performed){
+        if (context.performed && jumpCount < maxJump){
             Debug.Log("Jump " + context.phase);
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
-
+            jumpCount++;
         }
     }
 
@@ -51,7 +53,12 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
-        rb.AddForce(new Vector3(inputVector.x, 0 , inputVector.y) * moveSpeed, ForceMode2D.Force);
+        rb.AddForce(new Vector3(inputVector.x, 0 , inputVector.y) * moveSpeed, ForceMode2D.Force);   
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Ground")) {
+            jumpCount = 0;
+        }
     }
 
 
