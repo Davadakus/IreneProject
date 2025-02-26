@@ -8,6 +8,7 @@ Just get basic movement and flow going, focus on refining the character player c
 4a. Movement has been a little refined but needs more tweeks
     - minimum jump height when canceled the earliest 
     - x movement very abrupt but maybe thats what i want
+    - gravity increased when pressing down 
 5. Dummy sprite to have better testing (Maybe)
 
 ## To Do 2
