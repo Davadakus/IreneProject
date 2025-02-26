@@ -16,10 +16,11 @@ public class PlayerAim : MonoBehaviour
     }
 
     // When playing with rotation, SCALE OF PARENT MUST BE AT 1,1,1 https://discussions.unity.com/t/stretching-model-when-rotating/847320/2
+    //https://discussions.unity.com/t/changing-the-scale-of-the-parent-messes-up-the-children/113723 - solution
     private void FixedUpdate() {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(playerControls.Player.Aim.ReadValue<Vector2>());
         mousePosition.z = 0;
-        Debug.Log("Mouse Vector: " + mousePosition);
+        //Debug.Log("Mouse Vector: " + mousePosition);
         
         // normalized to keep it smooth
         Vector3 rotation = (mousePosition - transform.position).normalized;

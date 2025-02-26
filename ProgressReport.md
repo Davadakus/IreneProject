@@ -2,10 +2,13 @@
 Just get basic movement and flow going, focus on refining the character player control 
 
 1. ~~Basic Left Right Movement~~
-2. Jump determined based of how long W was held
-3. Get arrow indicating where Irene will shoot working following mouse around her
-4. Configure speed numbers to make a bit more sense (Might change again after sprite change)
-4. Dummy sprite to have better testing (Maybe)
+2. ~~Jump determined based of how long W was held~~
+3. ~~Get arrow indicating where Irene will shoot working following mouse around her~~
+4. ~~Configure speed numbers to make a bit more sense (Might change again after sprite change)~~
+4a. Movement has been a little refined but needs more tweeks
+    - minimum jump height when canceled the earliest 
+    - x movement very abrupt but maybe thats what i want
+5. Dummy sprite to have better testing (Maybe)
 
 ## To Do 2
 Have players be able to interact with other gameobjects in the game
@@ -19,3 +22,6 @@ Have players be able to interact with other gameobjects in the game
 - Melee combat mechanic undecided 
 - Enemy types undecided
 - 
+
+Note:
+- Careful messing with scale with child nodes, might make the child scale weirdly so keep it (1,1,1)
