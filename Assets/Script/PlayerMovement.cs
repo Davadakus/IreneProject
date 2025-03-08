@@ -12,11 +12,12 @@ public class PlayerMovement : MonoBehaviour {
     public int jumpCount = 0;
     public int maxJump = 2;
     public int moveSpeed = 5;
-    public int jumpSpeed = 3;
+    public float jumpSpeed = 1f; // Higher value == Higher Jump
+    public float gravity;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-
+        gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
         // PlayerControls is the name of the set of control you set 
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
@@ -30,24 +31,38 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Jump(InputAction.CallbackContext context) {
         // Context tells you all the details of the input data
-        Debug.Log(context);
+        //Debug.Log(context);
+        //Debug.Log("Jump " + context.phase);
         // Only one instance when button is pressed (Not when let go or started)
         if (context.performed && jumpCount < maxJump){
-            //Debug.Log("Jump " + context.phase);
             //rb.velocity = new Vector2(rb.velocity.x, 0);
-            if (jumpCount > 0) { // double jump
-                rb.velocity = new Vector2(rb.velocity.x, 0); // Reset vertical velocity
-                rb.AddForce(Vector3.up * jumpSpeed*2f, ForceMode2D.Impulse); //Double jump height to conteract gravity
-            } else if (rb.velocity.y < 0){ // midair jump when falling count as 2 jumps
-                Debug.Log("MidAir");
-                rb.velocity = new Vector2(rb.velocity.x, 0); // Reset vertical velocity
-                rb.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse); //Double jump height to conteract gravity
-                jumpCount++;
+            //Experimenting with jumping using ForceMode
+
+                //if (rb.velocity.y < 0) { // midair jump when falling count as 2 jumps
+                //    Debug.Log("MidAir");
+                //    jumpCount++;
+                //}
+                //if (jumpCount > 0) { // double jump
+                //    rb.velocity = new Vector2(rb.velocity.x, 0); // Reset vertical velocity
+                //    rb.AddForce(Vector3.up * jumpSpeed*2f, ForceMode2D.Impulse); //Double jump height to conteract gravity
+                //}
+                //else { // First jump
+                //    rb.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
+                //}
+
+            float jumpVelocity = Mathf.Sqrt(gravity * jumpSpeed);
+            if (jumpCount > 0) {
+                rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             }
-            else { // First jump
-                rb.AddForce(Vector3.up * jumpSpeed, ForceMode2D.Impulse);
+            else { // Second jump (airborne)
+                rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); // Higher boost for double jump
             }
+            // Implement isGrounded() check for grounded jump vs midair jump
+            //edge case when player's first jump is a midair jump
+
+
             jumpCount++;
+            Debug.Log(jumpCount);
         }
     }
 
@@ -74,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
-        // Less Floaty
+        //Less Floaty
         if (rb.velocity.y > 0) {
             rb.gravityScale = 1; // Less gravity while going up
         }

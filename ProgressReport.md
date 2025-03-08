@@ -9,8 +9,8 @@ Just get basic movement and flow going, focus on refining the character player c
     - ~~minimum jump height when canceled the earliest ~~
     - ~~x movement very abrupt but maybe thats what i want~~
     - ~~gravity increased when pressing down ~~
-6. Fix Double jump mechanic, when running off ledge, can only jump once midair
-5. Dummy sprite to have better testing (Maybe)
+5. Fix Double jump mechanic, when running off ledge, can only jump once midair
+6. Dummy sprite to have better testing (Maybe)
 
 ## To Do 2
 Have players be able to interact with other gameobjects in the game
@@ -27,3 +27,7 @@ Have players be able to interact with other gameobjects in the game
 
 Note:
 - Careful messing with scale with child nodes, might make the child scale weirdly so keep it (1,1,1)
+
+
+08/03/2025
+Switched from adding eb.AddForce() to just change the rb.velocity to make jump consistent and fixed.
