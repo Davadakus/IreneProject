@@ -1,0 +1,32 @@
+## To Do 1
+Just get basic movement and flow going, focus on refining the character player control 
+
+1. ~~Basic Left Right Movement~~
+2. ~~Jump determined based of how long W was held~~
+3. ~~Get arrow indicating where Irene will shoot working following mouse around her~~
+4. ~~Configure speed numbers to make a bit more sense (Might change again after sprite change)~~
+4a. ~~Movement has been a little refined but needs more tweeks~~
+    - ~~minimum jump height when canceled the earliest ~~
+    - ~~x movement very abrupt but maybe thats what i want~~
+    - ~~gravity increased when pressing down ~~
+5. ~~Fix Double jump mechanic, when running off ledge, can only jump once midair~~
+6. Dummy sprite to have better testing (Maybe)
+7. Try to auto match the layer to detect for ground to stop manually assigning from unity
+
+## To Do 2
+Have players be able to interact with other gameobjects in the game
+
+1. Have projectile come out and interact with other gameobject
+2. 
+
+## Uncategorized
+- Create Sprite Sheet for Irene and enemies
+- Background
+- Melee combat mechanic undecided 
+- Enemy types undecided
+- 
+
+Note:
+- Careful messing with scale with child nodes, might make the child scale weirdly so keep it (1,1,1)
+- Changing rigidbody velocity much better for fast and accurate movement, force for physics interaction is better suited
+- 

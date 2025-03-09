@@ -12,8 +12,12 @@ public class PlayerMovement : MonoBehaviour {
     public int jumpCount = 0;
     public int maxJump = 2;
     public int moveSpeed = 5;
-    public float jumpSpeed = 1f; // Higher value == Higher Jump
+    public float jumpSpeed = 3f; // Higher value == Higher Jump
     public float gravity;
+    public Vector2 boxSize = new Vector2(1, 0.23f);
+
+    public LayerMask groundLayer;  // Assign this in the Inspector but try to assign this automatically
+    public float groundCheck = 0.5f; // Small radius for checking
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -34,7 +38,10 @@ public class PlayerMovement : MonoBehaviour {
         //Debug.Log(context);
         //Debug.Log("Jump " + context.phase);
         // Only one instance when button is pressed (Not when let go or started)
+        
+        
         if (context.performed && jumpCount < maxJump){
+
             //rb.velocity = new Vector2(rb.velocity.x, 0);
             //Experimenting with jumping using ForceMode
 
@@ -51,18 +58,16 @@ public class PlayerMovement : MonoBehaviour {
                 //}
 
             float jumpVelocity = Mathf.Sqrt(gravity * jumpSpeed);
-            if (jumpCount > 0) {
+
+            if (jumpCount == 0 && !IsGrounded()) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+                jumpCount = 2;
             }
-            else { // Second jump (airborne)
-                rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); // Higher boost for double jump
+            else {
+                rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+                jumpCount++;
             }
-            // Implement isGrounded() check for grounded jump vs midair jump
-            //edge case when player's first jump is a midair jump
-
-
-            jumpCount++;
-            Debug.Log(jumpCount);
+            //Debug.Log(jumpCount);
         }
     }
 
@@ -99,15 +104,41 @@ public class PlayerMovement : MonoBehaviour {
 
         Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputVector.x * moveSpeed, rb.velocity.y);
+
+        if (IsGrounded()) {
+            jumpCount = 0; // Reset jump count when on ground
+        }
         //rb.MovePosition(new Vector2(inputVector.x, inputVector.y));
         // too slippery
         //rb.AddForce(new Vector3(inputVector.x, 0 , inputVector.y) * moveSpeed, ForceMode2D.Force);   
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Ground")) {
-            jumpCount = 0;
-        }
+
+    void Update() {
+        /*
+         * Testing raycasting 
+         */
+
+        //Debug.DrawRay(transform.position, Vector2.down * groundCheck, Color.red);
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheck, groundLayer);
+        //if (hit.collider != null) {
+        //    Debug.Log("Hit Ground");
+        //}
     }
 
+    //private void OnCollisionEnter2D(Collision2D other) {
+    //    if (other.gameObject.CompareTag("Ground")) {
+    //        jumpCount = 0;
+    //    }
+    //}
 
+    public bool IsGrounded() {
+        //Debug.Log("Grounded");
+        //return Physics2D.Raycast(transform.position, Vector2.down, groundCheck, groundLayer);
+        return Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.down, groundCheck, groundLayer);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawRay(transform.position, Vector2.down * groundCheck);
+        Gizmos.DrawWireCube(transform.position - transform.up * groundCheck, boxSize);
+    }
 }

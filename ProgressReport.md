@@ -1,33 +1,8 @@
-## To Do 1
-Just get basic movement and flow going, focus on refining the character player control 
-
-1. ~~Basic Left Right Movement~~
-2. ~~Jump determined based of how long W was held~~
-3. ~~Get arrow indicating where Irene will shoot working following mouse around her~~
-4. ~~Configure speed numbers to make a bit more sense (Might change again after sprite change)~~
-4a. ~~Movement has been a little refined but needs more tweeks~~
-    - ~~minimum jump height when canceled the earliest ~~
-    - ~~x movement very abrupt but maybe thats what i want~~
-    - ~~gravity increased when pressing down ~~
-5. Fix Double jump mechanic, when running off ledge, can only jump once midair
-6. Dummy sprite to have better testing (Maybe)
-
-## To Do 2
-Have players be able to interact with other gameobjects in the game
-
-1. Have projectile come out and interact with other gameobject
-2. 
-
-## Uncategorized
-- Create Sprite Sheet for Irene and enemies
-- Background
-- Melee combat mechanic undecided 
-- Enemy types undecided
-- 
-
-Note:
-- Careful messing with scale with child nodes, might make the child scale weirdly so keep it (1,1,1)
-
-
-08/03/2025
+# Daily Report
+## 08/03/2025
 Switched from adding eb.AddForce() to just change the rb.velocity to make jump consistent and fixed.
+
+## 09/03/2025 - 10/3/2025
+Added proper collision detection for when touching the ground and allowing only 1 jump if player did their first jump midair. Initially, I just checked for 2Dcollision from the player on to a ground object, however proves issues when simply touching side of wall, it reset the jump anyway.
+
+Possible solution for it exists but not tried since I wanted to try and do ray casting. I drew a line from the player to the ground and checked for collision that way with checking whether its a ground *Layer*. Issue here is its a line and so on a eldge it wont register. Used a boxcollider instead which works perfectly. Works the same way just a box. Took a whole day to figure it out though.
