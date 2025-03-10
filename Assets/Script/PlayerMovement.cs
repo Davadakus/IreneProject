@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour {
     public int moveSpeed = 5;
     public float jumpSpeed = 3f; // Higher value == Higher Jump
     public float gravity;
+    public bool glide = false;
+    public float glidingSpeed = -1f;
     public Vector2 boxSize = new Vector2(1, 0.23f);
 
     public LayerMask groundLayer;  // Assign this in the Inspector but try to assign this automatically
@@ -21,25 +24,40 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
-        // PlayerControls is the name of the set of control you set 
         playerControls = new PlayerControls();
+        gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
+        groundLayer = LayerMask.GetMask("Ground");
+
+        // PlayerControls is the name of the set of control you set 
         playerControls.Player.Enable();
         
         // In this case: Player is the action map; Jump is the Actions 
         // += in C# 'subscribes' the function with the event so multiple functions can be subscribed to the event
         playerControls.Player.Jump.performed += Jump;
-        playerControls.Player.Jump.canceled += JumpStop;
+        playerControls.Player.Jump.canceled += Jump;
+        playerControls.Player.Glide.performed += Glide;
+        playerControls.Player.Glide.canceled += Glide;
         playerControls.Player.Movement.canceled+= MoveStop;
+    }
+
+    public void Glide(InputAction.CallbackContext context) {
+        Debug.Log("Glide: " + context.phase);
+        if (context.performed) {
+            glide = true;
+            //rb.gravityScale = 0.5f;
+        }
+        else if (context.canceled) {
+            glide = false;
+            //rb.gravityScale = 2;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context) {
         // Context tells you all the details of the input data
-        //Debug.Log(context);
-        //Debug.Log("Jump " + context.phase);
         // Only one instance when button is pressed (Not when let go or started)
-        
-        
+
+
+        Debug.Log("Jump " + context.phase);
         if (context.performed && jumpCount < maxJump){
 
             //rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -62,22 +80,21 @@ public class PlayerMovement : MonoBehaviour {
             if (jumpCount == 0 && !IsGrounded()) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
                 jumpCount = 2;
+                //Debug.Log("Second Jump");
             }
             else {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
                 jumpCount++;
-            }
-            //Debug.Log(jumpCount);
-        }
-    }
+                //Debug.Log("First Jump");
 
-    public void JumpStop(InputAction.CallbackContext context) {
+            }
+        }
+
         if (context.canceled && rb.velocity.y > 0) {
             //rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
-
     public void MoveStop(InputAction.CallbackContext context) {
         if (context.canceled) {
             rb.velocity = new Vector2(0,rb.velocity.y);
@@ -98,6 +115,11 @@ public class PlayerMovement : MonoBehaviour {
         if (rb.velocity.y > 0) {
             rb.gravityScale = 1; // Less gravity while going up
         }
+        else if (glide) {
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(rb.velocity.x, glidingSpeed); // Reduce fall speed
+
+        }
         else {
             rb.gravityScale = 2; // More gravity when falling
         }
@@ -108,6 +130,7 @@ public class PlayerMovement : MonoBehaviour {
         if (IsGrounded()) {
             jumpCount = 0; // Reset jump count when on ground
         }
+        //Debug.Log(rb.velocity.y);
         //rb.MovePosition(new Vector2(inputVector.x, inputVector.y));
         // too slippery
         //rb.AddForce(new Vector3(inputVector.x, 0 , inputVector.y) * moveSpeed, ForceMode2D.Force);   

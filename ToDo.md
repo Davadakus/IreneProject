@@ -10,14 +10,29 @@ Just get basic movement and flow going, focus on refining the character player c
     - ~~x movement very abrupt but maybe thats what i want~~
     - ~~gravity increased when pressing down ~~
 5. ~~Fix Double jump mechanic, when running off ledge, can only jump once midair~~
-6. Dummy sprite to have better testing (Maybe)
-7. Try to auto match the layer to detect for ground to stop manually assigning from unity
+6. Dummy sprite to have better testing (Maybe) <span style="color:red"> Move to '**ToDo2**'</span>
+7. ~~Try to auto match the layer to detect for ground to stop manually assigning from unity~~
+8. ~~Glide Mechanic~~
 
 ## To Do 2
 Have players be able to interact with other gameobjects in the game
 
 1. Have projectile come out and interact with other gameobject
-2. 
+2. Have Enemy Object (Basic enemy that approaches player)
+3. Dummy Sprite for Player and Enemy
+4. Add sfx to when walkingv/firing
+5. Consider melee attack pattern
+6. Implement health and Arts bar UI
+7. Irene UI
+
+## To Do 3
+Not sure what To Do Milestone this should be if the one on the top covers interaction between gameobjects. Perhaps more enemy types can be considered here
+1. Flying Enemies
+2. Plot progression of gameplay (Endless or story)
+3. Item availability (Gun, Lantern) Depends on whether we go for story route
+
+Story route would require research into doing cutscenes potentially
+
 
 ## Uncategorized
 - Create Sprite Sheet for Irene and enemies

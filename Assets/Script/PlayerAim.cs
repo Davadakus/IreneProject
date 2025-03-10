@@ -12,7 +12,7 @@ public class PlayerAim : MonoBehaviour
     private void Awake() {
         // PlayerControls is the name of the set of control you set 
         playerControls = new PlayerControls();
-        playerControls.Player.Enable();
+        playerControls.Player.Aim.Enable();
     }
 
     // When playing with rotation, SCALE OF PARENT MUST BE AT 1,1,1 https://discussions.unity.com/t/stretching-model-when-rotating/847320/2
