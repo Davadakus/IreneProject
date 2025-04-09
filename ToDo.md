@@ -17,9 +17,10 @@ Just get basic movement and flow going, focus on refining the character player c
 ## To Do 2
 Have players be able to interact with other gameobjects in the game
 
-1. Dummy Sprites
-2. Irene Art
-3. Dialogue Box UI interaction
+1. Dummy Sprites implementation
+2. ~~Irene Art~~
+3. Fix interaction when player running into wall and gets stuck to it
+4. Dialogue Box UI interaction
 - History
 - Auto (Maybe)
 - Not implementing Skip button
