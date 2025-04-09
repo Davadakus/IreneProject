@@ -17,6 +17,13 @@ Just get basic movement and flow going, focus on refining the character player c
 ## To Do 2
 Have players be able to interact with other gameobjects in the game
 
+1. Dummy Sprites
+2. Irene Art
+3. Dialogue Box UI interaction
+- History
+- Auto (Maybe)
+- Not implementing Skip button
+
 1. Have projectile come out and interact with other gameobject
 2. Have Enemy Object (Basic enemy that approaches player)
 3. Dummy Sprite for Player and Enemy
@@ -24,6 +31,7 @@ Have players be able to interact with other gameobjects in the game
 5. Consider melee attack pattern
 6. Implement health and Arts bar UI
 7. Irene UI
+8. Irene talking ui
 
 ## To Do 3
 Not sure what To Do Milestone this should be if the one on the top covers interaction between gameobjects. Perhaps more enemy types can be considered here

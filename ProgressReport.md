@@ -13,3 +13,6 @@ I've made gliding work with this [video](https://www.youtube.com/watch?v=s8lQKlp
 Also, Might need to experiment with gliding trigger; currently set to 0.1 when 'w' is held down but might need tweaks. Also have made the LayerMask to auto detect the ground layer on awake(). 
 
 As for coding, I think this is a sufficient baseline to start working on other things that interact with the player. I think it would be great to consider the enemies and difuring out how sprites work during animation.
+
+## 09/04/2025
+Took a bit of a break but I have made the Irene artwork that I think I will use for her talking on screen. Next I want to try experiment doing demo sprite work to get a hang of what I should do when drawing Irene actually attacking. Probably just do some dummy sprite with from the asset store to see how the process is.
