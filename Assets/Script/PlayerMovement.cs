@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
     // public Keyboard keyboard;
     private Rigidbody2D rb;
     private PlayerControls playerControls;
+    public Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     public int jumpCount = 0;
     public int maxJump = 2;
@@ -17,17 +19,18 @@ public class PlayerMovement : MonoBehaviour {
     public float gravity;
     public bool glide = false;
     public float glidingSpeed = -1f;
-    public Vector2 boxSize = new Vector2(1, 0.23f);
+    public Vector2 boxSize = new Vector2(0.76f, 0.23f);
 
     public LayerMask groundLayer;  // Assign this in the Inspector but try to assign this automatically
-    public float groundCheck = 0.5f; // Small radius for checking
+    public float groundCheck = 0.89f; // Small radius for checking
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerControls();
         gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
         groundLayer = LayerMask.GetMask("Ground");
-
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         // PlayerControls is the name of the set of control you set 
         playerControls.Player.Enable();
         
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void Glide(InputAction.CallbackContext context) {
-        Debug.Log("Glide: " + context.phase);
+        //Debug.Log("Glide: " + context.phase);
         if (context.performed) {
             glide = true;
             //rb.gravityScale = 0.5f;
@@ -80,11 +83,13 @@ public class PlayerMovement : MonoBehaviour {
             if (jumpCount == 0 && !IsGrounded()) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
                 jumpCount = 2;
+                animator.SetBool("IsJumping", true);
                 //Debug.Log("Second Jump");
             }
             else {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
                 jumpCount++;
+                animator.SetBool("IsJumping", true);
                 //Debug.Log("First Jump");
 
             }
@@ -124,12 +129,26 @@ public class PlayerMovement : MonoBehaviour {
             rb.gravityScale = 2; // More gravity when falling
         }
 
-        Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
+        if (rb.velocity.x < 0){
+            spriteRenderer.flipX = rb.velocity.x < 0;
+        }
+        else if (rb.velocity.x > 0) {
+            spriteRenderer.flipX = rb.velocity.x < 0;
+        }
+
+            Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputVector.x * moveSpeed, rb.velocity.y);
+
+
 
         if (IsGrounded()) {
             jumpCount = 0; // Reset jump count when on ground
+            Debug.Log("Grounded");
+            animator.SetBool("IsJumping", false);
         }
+
+        animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("yVelocity", rb.velocity.y);
         //Debug.Log(rb.velocity.y);
         //rb.MovePosition(new Vector2(inputVector.x, inputVector.y));
         // too slippery

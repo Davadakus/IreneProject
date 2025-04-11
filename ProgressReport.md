@@ -16,3 +16,8 @@ As for coding, I think this is a sufficient baseline to start working on other t
 
 ## 09/04/2025
 Took a bit of a break but I have made the Irene artwork that I think I will use for her talking on screen. Next I want to try experiment doing demo sprite work to get a hang of what I should do when drawing Irene actually attacking. Probably just do some dummy sprite with from the asset store to see how the process is.
+
+## 11/04/2025
+So I've successfully implemented the animations, at least for running, jumping, falling, and idle. I sort of know how it works now and I want to create the Irene sprites now. However, I have some interaction issues with checking when the player is grounded. The player is getting checked every FixedUpdate but this in turn causes the grounded check to keep triggering since technically the box collider under the player is still touching when they lift off the ground. I actually forced the value 2 when the player jumps a second time to overlook this issue but this needs to be fixed. Maybe adding a delay to when it gets checked or making the check tighter? Will have to figure out but good progress. Also, the sprite is technically not centred so maybe add an offset for the box collider to be more accurate later. This [video](https://www.youtube.com/watch?v=Sg_w8hIbp4Y&t=18s&ab_channel=GameCodeLibrary) helped me mostly figure out how it works. 
+
+I made a the sprite flip in `FixedUpdate()` when the rb is detected to have positive or negative velocity too.  
