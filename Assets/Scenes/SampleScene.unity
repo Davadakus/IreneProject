@@ -429,6 +429,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1955589857}
   Offset: {x: 0, y: 2, z: -10}
+--- !u!1 &1029031766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9137459122290606777, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
+  m_PrefabInstance: {fileID: 3403836996771784233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447737041
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +600,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 315341983750288406, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
   m_PrefabInstance: {fileID: 3403836996771784233}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1955589862
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029031766}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b93208bbe7a9d54ba522694341984b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1447741949433685178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -729,6 +755,10 @@ PrefabInstance:
       value: 0.9166667
       objectReference: {fileID: 0}
     - target: {fileID: 306395124539477893, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 306395124539477893, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
@@ -802,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2978985353450048834, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
       propertyPath: groundCheck
-      value: 0.89
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 2978985353450048834, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
       propertyPath: groundLayer.m_Bits
@@ -823,7 +853,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 315341983750288406, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 449325346}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9137459122290606777, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1955589862}
   m_SourcePrefab: {fileID: 100100000, guid: c44c68d948d3e54498ae181da5fa94cf, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
