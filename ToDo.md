@@ -20,7 +20,7 @@ Have players be able to interact with other gameobjects in the game
 1. ~~Dummy Sprites implementation~~
 2. ~~Irene Art~~
 3. Fix interaction when player running into wall and gets stuck to it
-4. Fix isGrounded check
+4. ~~Fix isGrounded check~~
 5. Dialogue Box UI interaction
 - History
 - Auto (Maybe)

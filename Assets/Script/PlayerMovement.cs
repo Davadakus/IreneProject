@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     public int moveSpeed = 5;
     public float jumpSpeed = 3f; // Higher value == Higher Jump
     public float gravity;
+    public bool isGrounded;
     public bool glide = false;
     public float glidingSpeed = -1f;
     public Vector2 boxSize = new Vector2(0.76f, 0.23f);
@@ -80,7 +81,7 @@ public class PlayerMovement : MonoBehaviour {
 
             float jumpVelocity = Mathf.Sqrt(gravity * jumpSpeed);
 
-            if (jumpCount == 0 && !IsGrounded()) {
+            if (jumpCount == 0 && !isGrounded) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
                 jumpCount = 2;
                 animator.SetBool("IsJumping", true);
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+                isGrounded = false;
                 jumpCount++;
                 animator.SetBool("IsJumping", true);
                 //Debug.Log("First Jump");
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviour {
     public void MoveStop(InputAction.CallbackContext context) {
         if (context.canceled) {
             rb.velocity = new Vector2(0,rb.velocity.y);
+            //animator.SetFloat("xVelocity", 0);
         }
     }
 
@@ -136,12 +139,12 @@ public class PlayerMovement : MonoBehaviour {
             spriteRenderer.flipX = rb.velocity.x < 0;
         }
 
-            Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
+        Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputVector.x * moveSpeed, rb.velocity.y);
 
 
 
-        if (IsGrounded()) {
+        if (isGrounded) {
             jumpCount = 0; // Reset jump count when on ground
             Debug.Log("Grounded");
             animator.SetBool("IsJumping", false);
@@ -173,14 +176,26 @@ public class PlayerMovement : MonoBehaviour {
     //    }
     //}
 
-    public bool IsGrounded() {
-        //Debug.Log("Grounded");
-        //return Physics2D.Raycast(transform.position, Vector2.down, groundCheck, groundLayer);
-        return Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.down, groundCheck, groundLayer);
-    }
 
-    private void OnDrawGizmos() {
-        Gizmos.DrawRay(transform.position, Vector2.down * groundCheck);
-        Gizmos.DrawWireCube(transform.position - transform.up * groundCheck, boxSize);
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        {
+            isGrounded = !isGrounded;
+        }
     }
+    //public bool IsGrounded() {
+    //    //Debug.Log("Grounded");
+    //    //return Physics2D.Raycast(transform.position, Vector2.down, groundCheck, groundLayer); This is line, dont use this
+        
+        
+    //    //return Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.down, groundCheck, groundLayer);
+
+
+    //}
+
+    //private void OnDrawGizmos() {
+    //    This actually appears on unity without instantiating
+    //    Gizmos.DrawRay(transform.position, Vector2.down * groundCheck);
+    //    Gizmos.DrawWireCube(transform.position - transform.up * groundCheck, boxSize);
+    //}
 }
